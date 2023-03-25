@@ -1,25 +1,20 @@
+from sqlalchemy import Column, String, DateTime, Enum, Binary
+from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
-from enum import Enum
-from typing import List
-from pydantic import BaseModel
+from enum import Enum as EnumSQLAlchemy
 
+Base = declarative_base()
 
-class Sexo(str, Enum):
+class SexoEnum(EnumSQLAlchemy):
     masculino = "M"
     feminino = "F"
 
+class PacienteModel(Base):
+    __tablename__ = "paciente"
 
-class PacienteModel(BaseModel):
-    id_paciente: str
-    data_nascimento: datetime
-    sexo: Sexo
-    texto_prontuario: bytes
-    id_atendimento: str
-    data_atendimento: datetime
-
-    class Config:
-        orm_mode = True
-
-
-class Pacientes(BaseModel):
-    pacientes: List[PacienteModel]
+    id_paciente = Column(String, primary_key=True)
+    data_nascimento = Column(DateTime, nullable=False)
+    sexo = Column(Enum(SexoEnum), nullable=False)
+    texto_prontuario = Column(Binary, nullable=False)
+    id_atendimento = Column(String, nullable=False)
+    data_atendimento = Column(DateTime, nullable=False)

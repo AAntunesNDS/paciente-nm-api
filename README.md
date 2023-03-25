@@ -13,9 +13,8 @@ Web Api desafio NeuralMed
     - poetry install cria env e instalar as dependencias
     - poetry shell (para ativar a env ja existente)
 
+###to do\/
 # Create Makefile
     make build
     make test
     make deploy
-
-

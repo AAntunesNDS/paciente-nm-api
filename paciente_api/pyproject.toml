@@ -6,6 +6,11 @@ authors = ["Arthur Antunes <arthur.antunes.aa@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+fastapi = "^0.95.0"
+uvicorn = "^0.21.1"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+pydantic = "^1.10.7"
+SQLAlchemy = "^2.0.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

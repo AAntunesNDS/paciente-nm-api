@@ -1,9 +1,13 @@
-import models, schemas, crud
 
+import os, sys
+sys.path.insert(1, os.path.abspath(os.path.join(__file__ ,"../../..")))
+
+
+from database import models, crud, schemas
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from database import SessionLocal, engine
+from database.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 router = APIRouter()

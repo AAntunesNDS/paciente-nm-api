@@ -5,6 +5,10 @@ Web Api desafio NeuralMed
 
 # Add poetry
     Para rodar a aplicação e, ambiente de desenvolvimento, de forma local, é necessário ter a o gerenciador de dependências Poetry instalado.
+
+    sudo apt install python3-dev libpq-dev
+
+    
     * necessario estar dentro da pasta de algum serviço
     /prontuario_api
     /prontuario_model

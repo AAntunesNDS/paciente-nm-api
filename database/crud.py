@@ -1,6 +1,7 @@
-from sqlalchemy.orm import Session
 
-import models, schemas
+from database import models, schemas
+
+from sqlalchemy.orm import Session
 
 def get_prontuarios(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.ProntuarioModel).offset(skip).limit(limit).all()

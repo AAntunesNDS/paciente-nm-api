@@ -28,3 +28,21 @@ class Prontuario(ProntuarioBase):
     class Config:
         orm_mode = True
 
+
+class DiagnosticoBase(BaseModel):
+    id_paciente: int
+    id_atendimento: int
+    disorder: str
+    flag_ca: bool
+    created_at: datetime
+
+
+class DiagnosticoCreate(DiagnosticoBase):
+    pass
+
+
+class Diagnostico(DiagnosticoBase):
+    id_diagnostico: int
+
+    class Config:
+        orm_mode = True

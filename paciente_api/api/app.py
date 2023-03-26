@@ -6,7 +6,6 @@ sys.path.insert(1, os.path.abspath(os.path.join(__file__ ,"../../..")))
 from database import models, crud, schemas
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from database.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
@@ -20,34 +19,22 @@ def get_db():
     finally:
         db.close()
 
-#from jose import JWTError, jwt
-# JWT config
-#SECRET_KEY = "mysecretkey"
-#ALGORITHM = "HS256"
-#ACCESS_TOKEN_EXPIRE_MINUTES = 30
-#security = HTTPBearer()
-
 @router.post("/create_prontuario", response_model=schemas.Prontuario)
-async def prontuario_prontuario(prontuario: schemas.ProntuarioCreate, db: Session = Depends(get_db)):
+async def create_prontuario(prontuario: schemas.ProntuarioCreate, db: Session = Depends(get_db)):
     return crud.create_prontuario(db=db, prontuario=prontuario)
 
-
-@router.get("/paciente_diagnostico")
-async def prontuario_diagnostico(id_prontuario: str, id_atendimento: str):
-    #TODO JWT VALIDATION
-    '''
-    try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        username = payload.get("sub")
-        if username != "admin":
-            raise HTTPException(status_code=403, detail="Não autorizado")
-    except JWTError:
-        raise HTTPException(status_code=403, detail="Não autorizado")
-    '''
-
-    prontuario = db.get(id_prontuario)
-    if not prontuario or prontuario.id_atendimento != id_atendimento:
+@router.get("/get_prontuarios")
+async def get_prontuarios(db: Session = Depends(get_db)):
+    prontuarios = crud.get_prontuarios(db)
+    if not prontuarios:
         raise HTTPException(status_code=404, detail="prontuario ou atendimento não encontrados")
+    return prontuarios
 
-    return prontuario
+@router.get("/get_diagnostico")
+async def get_diagnostico(id_paciente: int, id_atendimento: int, db: Session = Depends(get_db)):
+    diagnosticos = crud.get_diagnostico(db, id_paciente, id_atendimento)
+    if not diagnosticos:
+        raise HTTPException(status_code=404, detail="diagnostico não encontrado")
+
+    return diagnosticos
 

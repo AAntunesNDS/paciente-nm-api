@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import Column, String, DateTime, Integer, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
@@ -14,3 +14,14 @@ class ProntuarioModel(Base):
     texto_prontuario = Column(String, nullable=False)
     id_atendimento = Column(Integer, nullable=False)
     data_atendimento = Column(DateTime, nullable=False)
+
+
+class DiagnosticoModel(Base):
+    __tablename__ = "diagnostico"
+
+    id_diagnostico = Column(Integer, primary_key=True, index=True)
+    id_paciente = Column(Integer, nullable=False)
+    id_atendimento = Column(Integer, nullable=False)
+    disorder = Column(String, nullable=False)
+    flag_ca = Column(Boolean, nullable=False)
+    created_at = Column(DateTime, nullable=False)

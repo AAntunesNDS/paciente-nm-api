@@ -9,17 +9,22 @@ class Sexo(str, Enum):
     feminino = "F"
 
 
-class PacienteSchema(BaseModel):
-    id_paciente: str
+class ProntuarioBase(BaseModel):
+    id_paciente : int
     data_nascimento: datetime
     sexo: Sexo
-    texto_prontuario: bytes
-    id_atendimento: str
+    texto_prontuario: str
+    id_atendimento: int
     data_atendimento: datetime
+
+
+class ProntuarioCreate(ProntuarioBase):
+    pass
+
+
+class Prontuario(ProntuarioBase):
+    id_prontuario: int
 
     class Config:
         orm_mode = True
 
-
-class Pacientes(PacienteSchema):
-    pacientes: List[PacienteSchema]

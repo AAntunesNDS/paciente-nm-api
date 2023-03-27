@@ -34,7 +34,7 @@ class DiagnosticoBase(BaseModel):
     id_atendimento: int
     disorder: str
     flag_ca: bool
-    created_at: datetime
+    #created_at: datetime
 
 
 class DiagnosticoCreate(DiagnosticoBase):
@@ -42,7 +42,6 @@ class DiagnosticoCreate(DiagnosticoBase):
 
 
 class Diagnostico(DiagnosticoBase):
-    id_diagnostico: int
 
     class Config:
         orm_mode = True

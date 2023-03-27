@@ -8,6 +8,10 @@ authors = ["Arthur Antunes <arthur.antunes.aa@gmail.com>"]
 python = "^3.8"
 transformers = "^4.27.3"
 torch = "^2.0.0"
+pydantic = "^1.10.7"
+pika = "^1.3.1"
+SQLAlchemy = "^2.0.7"
+psycopg2 = "^2.9.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

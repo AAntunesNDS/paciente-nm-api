@@ -24,4 +24,4 @@ class DiagnosticoModel(Base):
     id_atendimento = Column(Integer, nullable=False)
     disorder = Column(String, nullable=False)
     flag_ca = Column(Boolean, nullable=False)
-    created_at = Column(DateTime, nullable=False)
+    #created_at = Column(DateTime, nullable=False)

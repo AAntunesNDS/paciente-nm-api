@@ -1,12 +1,15 @@
-import os, sys
-sys.path.insert(1, os.path.abspath(os.path.join(__file__ ,"../../..")))
+import json
+import unicodedata
+import ast
+
+import torch
 
 from transformers import AutoModelForTokenClassification, AutoTokenizer
 from database.crud import create_diagnostico
 from database.database import SessionLocal
 from database.schemas import Diagnostico, DiagnosticoCreate
-from rabbitmq import consumer, publisher
-import torch
+from rabbitmq import consumer
+
 
 Session = SessionLocal()
 
@@ -36,32 +39,30 @@ class Model():
         
         return self
 
-import json
-import random
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    only_ascii = nfkd_form.encode('ASCII', 'ignore')
+    return only_ascii.decode('ascii')
 
 def classify_callback(ch, method, properties, body):
-    #try:
-    prontuario = json.loads(body.decode('utf-8'))
-    print(prontuario)
-    classify = Model().classify_disorder(prontuario["texto_prontuario"])
-    
-    for disorder in classify.disorders:
-        new_diagnostico = Diagnostico(
-            id_paciente = prontuario["id_paciente"], 
-            id_atendimento = prontuario["id_atendimento"],
-            disorder = disorder,
-            flag_ca = True if disorder == 'ca' else False
-        )
-        create_diagnostico(Session, new_diagnostico)
-    #except:
-    #    print("Callback exception")
-    #    pass
+    try:
+        prontuario = ast.literal_eval(json.loads(body.decode('utf-8')))
+        classify = Model().classify_disorder(remove_accents(prontuario["texto_prontuario"]))
+
+        for disorder in classify.disorders:
+            new_diagnostico = Diagnostico(
+                id_paciente = prontuario["id_paciente"], 
+                id_atendimento = prontuario["id_atendimento"],
+                disorder = disorder,
+                flag_ca = True if disorder == 'ca' else False
+            )
+            create_diagnostico(Session, new_diagnostico)
+            print("Create diagnostico!")
+    except:
+        print("Callback exception")
+        pass
 
 def main():
-    '''
-    {"id_paciente": 2, "data_nascimento": "2023-03-26T22:01:19.457Z","sexo": "M","texto_prontuario": "Paciente com CA de mama, histórico de diabetes mellitus","id_atendimento": 3,"data_atendimento": "2023-03-26T22:01:19.457Z"}
-    '''
-
     rabitmq_consumer = consumer.RabbitmqConsumer(classify_callback)
     rabitmq_consumer.start()
 

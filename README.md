@@ -23,6 +23,7 @@ Web Api desafio NeuralMed
 
 ###to do\/
 # Create Makefile
+export PYTHONPATH="/home/aantunesnds/Desktop/desafio_neural_med/paciente-nm-api:$PYTHONPATH"
     make build
     make test
     make deploy

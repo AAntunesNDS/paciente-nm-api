@@ -1,10 +1,5 @@
 from fastapi import FastAPI
-from app import router
-import sys
-
-#sys.path.insert(1, '/home/aantunesnds/Desktop/desafio_neural_med/paciente-nm-api')
-
-sys.path.append('../')
+from paciente_api.api.api import router
 
 app = FastAPI()
 

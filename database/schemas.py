@@ -12,7 +12,7 @@ class Sexo(str, Enum):
 class ProntuarioBase(BaseModel):
     id_paciente : int
     data_nascimento: datetime
-    sexo: Sexo
+    sexo: str
     texto_prontuario: str
     id_atendimento: int
     data_atendimento: datetime

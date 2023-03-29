@@ -11,6 +11,7 @@ Estruturalmente ele é dividido em 4 partes;
 - Um [modelo de classificação de linguagem (NLP)](https://huggingface.co/pucpr/clinicalnerpt-disorder/tree/main) que vai receber o texto de pronturário e classificar os tokens;
 - E um servidor simples de mensageria (RabbitMQ) que vai ser utilizado para consumir os dados da api pelo modelo de classificação de dados.
 
+![alt text](https://github.com/AAntunesNDS/paciente-nm-api/blob/main/documentation/arquitetura_desafio_neuralmed.jpg)
 
 ### Pré-requisitos
 
@@ -26,7 +27,7 @@ sudo apt install python3-dev libpq-dev
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/AAntunesNDS/file_system_api.git
+$ git clone https://github.com/AAntunesNDS/paciente-nm-api.git
 
 # Crie uma instância postgres com docker-compose (se você já tiver um postgres na porta 5432 pode dar conflito. Se certifique que não tem)
 $ make build_database
@@ -54,6 +55,3 @@ $ make run_model_consumer
 $ make test
 
 ```
-
-
-![alt text](https://github.com/AAntunesNDS/paciente-nm-api/blob/main/documentation/arquitetura_desafio_neuralmed.jpg)

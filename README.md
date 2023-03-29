@@ -16,7 +16,7 @@ Estruturalmente ele é dividido em 4 partes;
 ### Pré-requisitos
 
 Para rodar o projeto é preciso ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Python 3.8](https://www.python.org/downloads/release/python-380/) e o gerenciador de dependencias [Poetry](https://python-poetry.org/). 
+[Git](https://git-scm.com), [Python 3.8](https://www.python.org/downloads/release/python-380/), o gerenciador de dependencias [Poetry](https://python-poetry.org/) o [Docker](https://docs.docker.com/engine/install/) e o [Docker-Compose](https://www.digitalocean.com/community/tutorial_collections/how-to-install-docker-compose). 
 Também será necessária a instalção global libpq-dev para as permissões necessárias do Postgres:
 
 ```bash

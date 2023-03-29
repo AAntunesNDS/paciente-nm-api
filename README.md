@@ -43,6 +43,7 @@ $ make run_api
 
 # Cria e sobe uma imagem docker de um servidor de rabbitmq na porta 15672.]
 # Nesse ponto você deve entrar no link http://localhost:15672/ e criar uma exchange e uma queue chamadas data_exchange, data_queue
+# Além disso você precisa "bindar" a data_exchange na data_queue. Isso também deve ser feito pelo serviodor local do rabbitmq
 $ make build_rabbitmq_server
 
 # Instala as dependências do modelo de classificação de diagnõsticos
@@ -55,3 +56,30 @@ $ make run_model_consumer
 $ make test
 
 ```
+
+### Instruções adicionais
+
+Nesse momento, você já tem tudo que é necessário para fazer um teste da aplicação. 
+Entre no link de swagger da API: http://localhost:8000/docs e utilize a rota /create_prontuario para criar um prontuário.
+Você deve editar o campo "texto_prontuario" com um texto real de prontuario como o passado no teste:
+
+'Paciente com CA de mama, histórico de prontuarios mellitus'
+
+Ao executar, o registro do pontuario foi criado na base Postgres. Além disso, o corpo da requisição foi enviada como mensagem para
+a queue criada anteriormente do rabbitmq, deve ter sido processada, classificada, e salva no banco de dados Postgres novamente.
+No terminal que foi executado o 'make run_model_consumer' aparece o log desse processo.
+
+Voce pode voltar no swagger e bater na rota /get_diagnóstico, passando id do paciente e id do atendimento utilizadas na criação do prontuario.
+
+
+### Observações finais
+
+Alguns pontos de melhoria para o projeto atual:
+
+- Criar mais testes unitários, desenvolvendo a prática de TDD
+- Ao invés de requisitar o modelo de forma online, baixar os pesos para o ambiente local para fazer a predição de forma mais rápida
+- Explorar mais a capacidade do RabbitMQ 
+- Ajustar CI no github para validar testes uniarios em cada PR
+- Admistrar melhor as envs de segurança, seja usando .env ou algum serviço gerenciado.
+
+ Sugestões? Abre um PR e seja feliz =D

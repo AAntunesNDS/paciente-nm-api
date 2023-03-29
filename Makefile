@@ -18,7 +18,7 @@ run_api:
 	export PYTHONPATH=${PWD}; cd paciente_api/api/; uvicorn main:app --reload;
 
 build_rabbitmq_server:
-	cd rabbitmq; docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management ;printf "Seu rabbitmq server já foi criado e está rodando! \nAgora entre no seu painel com o usuário:guest pswd:guest \nCrie uma exchange padrão chamada data_exchange\nCrie uma queue padrão chamada data_queue\n"
+	cd rabbitmq; sudo docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management ;printf "Seu rabbitmq server já foi criado e está rodando! \nAgora entre no seu painel com o usuário:guest pswd:guest \nCrie uma exchange padrão chamada data_exchange\nCrie uma queue padrão chamada data_queue\n"
 
 build_model:
 	export PYTHONPATH=${PWD} && cd prontuario_classify/prontuario_classify/ && poetry install && poetry shell;  cd ..; cd ..;

@@ -56,4 +56,4 @@ $ make test
 ```
 
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/AAntunesNDS/paciente-nm-api/blob/main/documentation/arquitetura_desafio_neuralmed.jpg)
